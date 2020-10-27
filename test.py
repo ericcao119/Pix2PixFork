@@ -37,7 +37,7 @@ from util import html
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options
     # hard-code some parameters for test
-    opt.num_threads = 0   # test code only supports num_threads = 0
+    opt.num_threads = 0   # test code only supports num_threads = 1
     opt.batch_size = 1    # test code only supports batch_size = 1
     opt.serial_batches = True  # disable data shuffling; comment this line if results on randomly chosen images are needed.
     opt.no_flip = True    # no flip; comment this line if results on flipped images are needed.
@@ -57,8 +57,8 @@ if __name__ == '__main__':
     if opt.eval:
         model.eval()
     for i, data in enumerate(dataset):
-        if i >= opt.num_test:  # only apply our model to opt.num_test images.
-            break
+        #if i >= opt.num_test:  # only apply our model to opt.num_test images.
+        #    break
         model.set_input(data)  # unpack data from data loader
         model.test()           # run inference
         visuals = model.get_current_visuals()  # get image results
@@ -67,3 +67,4 @@ if __name__ == '__main__':
             print('processing (%04d)-th image... %s' % (i, img_path))
         save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize)
     webpage.save()  # save the HTML
+
